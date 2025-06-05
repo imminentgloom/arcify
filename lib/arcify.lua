@@ -18,7 +18,7 @@ local NO_ASSIGMENT = "none"
 local VALID_ORIENTATIONS = {0, 180}
 local INTEGER_SCALE_FACTOR = 0.000001
 local DEFAULT_SCALE = 0.001
-local SHIFT_KEYS = {"none", "key 2", "key 3"}
+local SHIFT_KEYS = {"off", "on"}
 local SHIFT_MODE = {"toggle", "hold"}
 
 -- utility functions
@@ -216,6 +216,10 @@ function Arcify.new(arc_obj, update_self, update_rate)
         ap:update(n, delta)
     end
 
+    function ap.a_.key(n, z)
+        ap:handle_shift(n, z)
+    end
+
     setmetatable(ap, Arcify)
     return ap
 end
@@ -392,7 +396,7 @@ function Arcify:handle_shift(key_pressed, key_state)
         return
     end
 
-    if key_num == key_pressed then
+    if key_num - 1 == key_pressed then
         if key_mode == "toggle" and key_state == 1 then
             self.is_shifted_ = not self.is_shifted_
         end
