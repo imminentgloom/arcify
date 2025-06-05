@@ -358,8 +358,9 @@ function Arcify:update(num, delta)
         if param.is_rounded then
             new_delta = round_delta(new_delta)
         end
-        local value = params:get(param.name) + new_delta
-        params:set(param.name, value)
+        local value = params:get_raw(param.name) + new_delta
+        params:set_raw(param.name, value)
+        print(value)
     end
 end
 
